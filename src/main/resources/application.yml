@@ -1,0 +1,11 @@
+spring:
+  profiles: local
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        insurance-topic:
+          destination: insurance.topic
+          contentType: application/json

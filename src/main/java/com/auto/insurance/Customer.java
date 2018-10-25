@@ -60,13 +60,21 @@ public class Customer {
     @PrePersist
     public void beforeSave() throws Exception {
 
-        CreditRepository creditRepository = Application.getApplicationContext().getBean(CreditRepository.class);
+        /** local call **/
+//        CreditRepository creditRepository = Application.getApplicationContext().getBean(CreditRepository.class);
+//
+//        Optional<Credit> creditOptional = creditRepository.findById(getSsn());
+//
+//        Credit credit = creditOptional.get();
 
-        Optional<Credit> credit = creditRepository.findById(getSsn());
 
-        Credit credit1 = credit.get();
 
-        if(credit1.getCreditRate().compareTo("B") > 0 ){
+        /** remote call **/
+
+        CreditService creditService = Application.getApplicationContext().getBean(CreditService.class);
+        Credit credit = creditService.getCredit(getSsn());
+
+        if(credit.getCreditRate().compareTo("B") > 0 ){
             throw new Exception("신용도가 B 이상이어야 합니다.");
         }
 

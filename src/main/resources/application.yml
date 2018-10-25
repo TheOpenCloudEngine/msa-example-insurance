@@ -1,0 +1,22 @@
+spring:
+  profiles: local
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        insurance-topic:
+          destination: insurance.topic
+          contentType: application/json
+        insurance-topic-in:
+          destination: insurance.topic
+          contentType: application/json
+
+eureka:
+  client:
+    enabled: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    healthcheck:
+      enabled: true

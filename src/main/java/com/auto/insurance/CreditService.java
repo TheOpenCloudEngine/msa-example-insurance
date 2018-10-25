@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by uengine on 2018. 10. 25..
  */
-@FeignClient(name = "credit-service", url="http://localhost:9997")
+//@FeignClient(name = "credit-service", url="http://localhost:9997")
+@FeignClient(serviceId = "credit-rating-service")
 public interface CreditService {
 
     @RequestMapping(path="/credits/{ssn}", method= RequestMethod.GET)

@@ -8,6 +8,8 @@ public class Credit {
     String ssn;
     String creditRate;
 
+    String ratingAgent;
+
     public String getSsn() {
         return ssn;
     }
@@ -23,4 +25,15 @@ public class Credit {
     public void setCreditRate(String creditRate) {
         this.creditRate = creditRate;
     }
+
+
+    public String getRatingAgent() {
+        return ratingAgent;
+    }
+
+    public void setRatingAgent(String ratingAgent) {
+        this.ratingAgent = ratingAgent;
+    }
+
+
 }

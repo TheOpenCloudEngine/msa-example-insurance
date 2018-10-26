@@ -12,6 +12,7 @@ spring:
         insurance-topic-in:
           destination: insurance.topic
           contentType: application/json
+
 eureka:
   client:
     enabled: true

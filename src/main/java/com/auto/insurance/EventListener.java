@@ -15,40 +15,22 @@ import java.util.Optional;
 public class EventListener {
 
     @Autowired
-    CreditRepository creditRepository;
+    CustomerRepository customerRepository;
 
     @StreamListener(Streams.INPUT)
-    public void handle(@Payload CustomerRegisteredEvent customerRegisteredEvent) {
-
-        System.out.println("Credit rating for " + customerRegisteredEvent.getSsn());
-
-        Optional<Credit> optional = (creditRepository.findById(customerRegisteredEvent.getSsn()));
-
-        Credit credit = optional.get();
-
-        if(credit.getCreditRate().compareTo("B") > 0 ){
-            System.out.println("신용도가 B 이상이어야 합니다.");
+    public void handle(@Payload CreditOkEvent creditOkEvent) {
 
 
-        }else{
+        Optional<Customer> optional = customerRepository.findBySsn(creditOkEvent.getSsn());
 
+        if(optional.isPresent()){
 
-            Streams streams = Application.getApplicationContext().getBean(Streams.class);
+            Customer customer = optional.get();
 
-            MessageChannel messageChannel = streams.outboundChannel();
-
-            CreditOkEvent creditOkEvent = new CreditOkEvent();
-
-            creditOkEvent.setSsn(customerRegisteredEvent.getSsn());
-
-            messageChannel.send(MessageBuilder
-                    .withPayload(creditOkEvent)
-                    .setHeader(MessageHeaders.CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON)
-                    .build());
-
-            System.out.println("Event published");
+            customer.setStatus("APPROVED");
 
         }
+
 
     }
 }

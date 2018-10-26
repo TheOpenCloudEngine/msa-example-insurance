@@ -14,4 +14,3 @@ http "http://localhost:9991/customers/1/vehicles"
 
 
 ```
-# msa-example-credit
